@@ -1,0 +1,388 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 740px;
+}
+a{
+    text-decoration: none;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #FAF9EE;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000; /* above sidebar */
+}
+
+.top-nav {
+  list-style: none;
+  display: flex;
+  gap: 50px;
+  margin: 0;
+  padding: 10px;
+  margin-left: auto;
+}
+
+.top-nav li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s;
+  font-weight: bold;
+}
+
+.top-nav li a:hover {
+  color: #ff9800;
+}
+main{
+    display: flex;
+    justify-content: space-around;
+    /* background-color: #89ca66; */
+    min-height: 97.5vh;
+    position: relative;
+}
+.top-nav a{
+    color: black;
+}
+.sidebar {
+  position: fixed;
+  top: 60px;  /* below header */
+  left: 0;
+  width: 200px;
+  height: calc(100vh - 60px); /* full height minus header */
+  background: #A2AF9B;
+  padding-top: 55px;
+  color: black;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  font-size: 18px;
+  color: #323030;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+.nav-list li  a{
+    color: #323030;
+}
+
+.nav-list li:hover {
+  background: #FAF9EE;
+  color: #ff9800;
+}
+.nav-list a:hover {
+  background: #FAF9EE;
+  color: #ff9800;
+}
+.bg-image{
+    background-color: #ff9800;
+    width: 100%;
+    /* height: 500px; */
+
+  flex: 1;
+  margin-top: 60px;
+  margin-left: 200px;
+  padding: 20px;
+  
+  /* Background image for this section only */
+  background-image: url('./images/bg.01.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Optional overlay */
+  position: relative;
+
+}
+.bg-image::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); /* dark overlay to make text readable */
+  z-index: 1;
+}
+
+.bg-image > * {
+  position: relative;  /* put text above overlay */
+  z-index: 2;
+  color: white;        /* make text visible */
+}
+.bg-image .intro{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #DCCFC0;
+    width: 900px;
+    height: 150px;
+    text-align: center;
+    line-height: 150px;
+    color: #323030;
+    /* border-radius: 10%; */
+    border: 1px solid #A2AF9B;
+}
+.recipes-container,
+#results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  /* background-color: #f9f9f9; */
+  width: 100%;
+  /* margin-left: auto; */
+  /* margin-top: 20px; */
+}
+.card .ingredients {
+  padding: 0 16px;
+  margin: 0;
+  list-style-type: disc;
+  color: #333;
+}
+
+.card .ingredients li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.favorite-btn {
+  margin: 16px;
+  padding: 8px 12px;
+  background-color: #E5BEB5;
+  color: #1A1A19;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.favorite-btn:hover {
+  background-color: #A8BBA3;
+}
+.remove-fav-btn {
+  margin: 12px 16px 16px;
+  padding: 8px 12px;
+  background-color: #E5BEB5; /* red tone */
+  color: #1A1A19;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.updateRecipe{
+      margin: 16px;
+  padding: 8px 12px;
+  background-color: #E5BEB5;
+  color: #1A1A19;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+.updateRecipe:hover{  background-color: #A8BBA3;
+}
+.deleteRecipe{
+      margin: 16px;
+  padding: 8px 12px;
+  background-color: #E5BEB5;
+  color: #1A1A19;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+.deleteRecipe:hover {
+  background-color: #A8BBA3;
+}
+.remove-fav-btn:hover {
+  background-color: #A8BBA3;
+  transform: scale(1.03);
+}
+.recipes-container .card {
+  background-color: #fff;
+  width: 360px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.recipes-container .card #image {
+  width: 80%;
+  height: 200px;
+  margin: auto;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+  border-radius: 25px
+}
+.recipes-container .card #title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 12px 16px 0 16px;
+  color: #896C6C;
+  margin-bottom: 15px;
+  text-align: center;
+
+}
+.card .ingredients-title,
+.card .instructions-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  padding: 0 16px;
+  color: #444;
+}
+.card .instructions {
+  padding: 0 16px 16px 40px;
+  color: #333;
+  margin: 0;
+}
+
+.card .instructions li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.recipe-btn {
+  margin: 12px 16px 16px;
+  padding: 8px 12px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.recipe-btn:hover {
+  background-color: #2980b9;
+}
+/* Recipe description styling */
+.recipes-container .card-description {
+  color: #5a6c7d;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+/* Container to center the search bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* Style the input box */
+#searchInput  {
+  width: 300px;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+#searchInput :focus {
+  border-color: #4CAF50; /* highlight color */
+}
+
+/* Style the button */
+#searchBtn {
+  padding: 10px 20px;
+  border: 2px solid #4CAF50;
+  border-left: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#searchBtn:hover {
+  background-color: #45a049;
+}
+#results .card {
+  background-color: #fff;
+  width: 360px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+#results .card #image {
+  width: 80%;
+  height: 200px;
+  margin: auto;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+  border-radius: 25px;
+  display: block;
+  text-align: center;
+}
+#results .card #title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 12px 16px 0 16px;
+  color: #896C6C;
+  margin-bottom: 15px;
+  text-align: center;
+
+}
+footer {
+  background-color: #EEEEEE;
+  color: #1A1A19;
+  /* padding: 15px; */
+  text-align: center;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  font-weight: 800;
+  height: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  letter-spacing: 2px;
+  line-height: 20px;
+}

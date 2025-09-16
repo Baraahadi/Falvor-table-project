@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKB4Imkb9hYQdF+2C5MdT3f3uJXkzFf3qj/8d+kE2w1l1p6q36+tA/74fRqh1VYlC9K2VjQ4A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Flavor Table Project</title>
+  </head>
+  <body>
+    <header>
+      <ul class="top-nav">
+         <li><i class="fa-solid fa-bell"></i> <a href="profile.html">Profile</a></li>
+        <li><i class="fa-solid fa-user"></i> <a href="favorite.html">Favorite Recipes</a></li>
+                <li><i class="fa-solid fa-bell"></i> <a href="index.html">Back To Home </a></li>
+      </ul>
+    </header>
+    <main>
+      <nav class="sidebar">
+        <ul class="nav-list">
+          <li><i class="fa-solid fa-star"></i> <a href="randomRecipes.html">Random Recipes</a></li>
+          <li><i class="fa-solid fa-gear"></i> <a href="search.html">search Recipes</a></li>
+          <li><i class="fa-solid fa-right-from-bracket"></i> About Us</li>
+        </ul>
+      </nav>
+      <div class="bg-image">
+            <div class="bg"> 
+          <input type="text" id="searchInput"placeholder="Enter ingredients (e.g. chicken,rice)" />
+          <button id="searchBtn">Search</button>
+          <div id="results"></div>
+  </div>      </div>
+    </main>
+    <footer>&copy; 2025 Flavor Table. All rights reserved.</footer>
+    <script src="app.js"></script>
+  </body>
+</html>

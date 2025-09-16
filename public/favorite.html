@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKB4Imkb9hYQdF+2C5MdT3f3uJXkzFf3qj/8d+kE2w1l1p6q36+tA/74fRqh1VYlC9K2VjQ4A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Flavor Table Project</title>
+  </head>
+  <body>
+    <header>
+      <ul class="top-nav">
+        <li><i class="fa-solid fa-bell"></i> Profile</li>
+        <li><i class="fa-solid fa-user"></i><a href="favorite.html">Favorite Recipes</a></li>
+                <li><i class="fa-solid fa-bell"></i> <a href="index.html">Back To Home </a></li>
+
+      </ul>
+    </header>
+    <main>
+      <nav class="sidebar">
+        <ul class="nav-list">
+          <li><i class="fa-solid fa-star"></i> <a href="randomRecipes.html">Random Recipes</a></li>
+          <li><i class="fa-solid fa-gear"></i> <a href="search.html">search Recipes</a></li>
+          <li><i class="fa-solid fa-right-from-bracket"></i> About Us</li>
+        </ul>
+      </nav>
+      <div class="bg-image">
+          <div class="recipes-container"></div>
+
+        <!-- <div class="intro"><h1>Flavor Table</h1></div> -->
+      </div>
+    </main>
+    <footer>&copy; 2025 Flavor Table. All rights reserved.</footer>
+
+
+    <script > document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.querySelector(".recipes-container");
+
+  try {
+    // Fetch favorites from backend
+    const response = await fetch("/recipes/random");
+    const favorites = await response.json();
+
+    if (favorites.length === 0) {
+      container.innerHTML = "<p>No favorite recipes found.</p>";
+      return;
+    }
+
+    favorites.forEach((recipe) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <h4 class="title">${recipe.title}</h4>
+        <img class="image" src="${recipe.image}" alt="${recipe.title}">
+        <h5 class="ingredients-title">Ingredients:</h5>
+        <ul class="ingredients"></ul>
+        <h5 class="instructions-title">Instructions:</h5>
+        <ol class="instructions"></ol>
+        <button class="remove-fav-btn">Remove from Favorites</button>
+      `;
+
+      // Ingredients
+      const ingredientsList = card.querySelector(".ingredients");
+      try {
+        const ingredientsArray = Array.isArray(recipe.ingredients) ? recipe.ingredients : JSON.parse(recipe.ingredients);
+        ingredientsArray.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          ingredientsList.appendChild(li);
+        });
+      } catch {
+        // fallback if parsing fails
+        const items = (recipe.ingredients || "").split(",").map(i => i.trim());
+        items.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          ingredientsList.appendChild(li);
+        });
+      }
+
+      // Instructions
+      const instructionsList = card.querySelector(".instructions");
+      try {
+        const steps = Array.isArray(recipe.instructions) ? recipe.instructions : JSON.parse(recipe.instructions);
+        steps.forEach(step => {
+          const li = document.createElement("li");
+          li.textContent = step;
+          instructionsList.appendChild(li);
+        });
+      } catch {
+        // fallback if plain string
+        const steps = (recipe.instructions || "").split(/\r?\n|\. /).map(s => s.trim()).filter(Boolean);
+        steps.forEach(step => {
+          const li = document.createElement("li");
+          li.textContent = step;
+          instructionsList.appendChild(li);
+        });
+      }
+
+      // Remove favorite button
+      const removeBtn = card.querySelector(".remove-fav-btn");
+      removeBtn.addEventListener("click", async () => {
+        await fetch(`/recipes/favorites/${recipe.id}`, { method: "DELETE" });
+        card.remove(); // remove card from DOM
+      });
+
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Error fetching favorite recipes:", error);
+    container.innerHTML = "<p>Failed to load favorite recipes.</p>";
+  }
+});
+</script>
+  </body>
+</html>
