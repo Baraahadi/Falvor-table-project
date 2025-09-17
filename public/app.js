@@ -64,30 +64,19 @@ if (e.instructions) {
     // Split by new lines or periods
     steps = e.instructions.split(/\r?\n|\. /).map(s => s.trim()).filter(Boolean);
   }
-
+// update recipes
+   
   // Append to DOM
   steps.forEach(step => {
     const li = document.createElement("li");
     li.textContent = step;
     instructionsList.appendChild(li);
   });
-//   const updateBtn = recipeCard.querySelector(".updateRecipe");
-//   updateBtn.addEventListener("click", () => {
-//   modal.style.display = "block";
-
-//   // Pre-fill form with this recipe’s data
-//   form.title.value = e.title;
-//   form.image.value = e.image;
-//   form.ingredients.value = Array.isArray(e.ingredients) ? e.ingredients.join(", ") : e.ingredients;
-//   form.instructions.value = Array.isArray(e.instructions) ? e.instructions.join("\n") : e.instructions;
-
-//   form.dataset.recipeId = e.id; // store the recipe id for submission
-// });
 
 }
 
 
-    // Favorite button
+// Favorite button
     const favBtn = recipeCard.querySelector(".favorite-btn");
     favBtn.addEventListener("click", () => {
       let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -100,16 +89,7 @@ if (e.instructions) {
         favBtn.textContent = "Already in Favorite";
       }
     });
-//update button
-    //  const updateBtn = recipeCard.querySelector(".updateRecipe");
-    // updateBtn.addEventListener("click", () => {
-    //   modal.style.display = "block";
-    //   form.title.value = e.title;
-    //   form.image.value = e.image;
-    //   form.ingredients.value = Array.isArray(e.ingredients) ? e.ingredients.join(", ") : e.ingredients;
-    //   form.instructions.value = Array.isArray(e.instructions) ? e.instructions.join("\n") : e.instructions;
-    //   form.dataset.recipeId = e.id;
-    // });
+
 //delete button
 const deleteBtn = recipeCard.querySelector(".deleteRecipe");
 deleteBtn.addEventListener("click", async () => {
@@ -127,12 +107,63 @@ deleteBtn.addEventListener("click", async () => {
     console.error(err);
   }
 });
+// update button
+const updateBtn = recipeCard.querySelector(".updateRecipe");
+updateBtn.addEventListener("click", () => {
+  const modal = document.getElementById("updateModal");
+  const form = document.getElementById("updateForm");
+
+  modal.style.display = "block";
+
+  form.title.value = e.title;
+  form.image.value = e.image;
+  form.ingredients.value = Array.isArray(e.ingredients) ? e.ingredients.join(", ") : e.ingredients;
+  form.instructions.value = e.instructions;
+
+  form.dataset.recipeId = e.id;
+});
     container.appendChild(recipeCard);
   });
+  
 }
-
 // Call function
 renderRecipes();
+const form = document.getElementById("updateForm");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const recipeId = form.dataset.recipeId;
+
+  const updatedRecipe = {
+    title: form.title.value,
+    image: form.image.value,
+    ingredients: form.ingredients.value,
+    instructions: form.instructions.value,
+  };
+
+  try {
+    const res = await fetch(`/recipes/${recipeId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedRecipe),
+    });
+
+    if (res.ok) {
+      alert("Recipe updated!");
+      document.getElementById("updateModal").style.display = "none";
+      renderRecipes(); 
+    } else {
+      alert("Failed to update recipe");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error updating recipe");
+  }
+});
+
+document.querySelector("#updateModal .cancel-btn").addEventListener("click", () => {
+  document.getElementById("updateModal").style.display = "none";
+});
 
 // search 
 document.getElementById("searchBtn").addEventListener("click", async () => {
@@ -164,5 +195,4 @@ document.getElementById("searchBtn").addEventListener("click", async () => {
     alert("Error fetching recipes");
   }
 });
-
 
