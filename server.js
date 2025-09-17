@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express(); // create express app to build our server with related router , middlewares
 app.use(express.json()); // it pasre Json request body
 app.use(cors());
-const port = process.env.PORT; // import port variable from .env file
+const port = process.env.PORT || 3000; // import port variable from .env file
 const pool = require('./db/pgConnections'); // import pool class to manage DB 
 
 
@@ -30,6 +30,7 @@ app.use("/recipes",updateRecipes)
 app.use("/user",userregister);
 app.use("/user",userAuthentication);
 // check the DB connections then running the server on the port came from .env file
-pool.connect().then(()=>{app.listen(3000, ()=> console.log(`App is listening on port http://localhost:${port}`))});
+pool.connect().then(()=>{
+app.listen(port, () => console.log(`Server running on port ${port}`));});
 
 
