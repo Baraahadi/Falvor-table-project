@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const pool = require("../db/pgConnections")
+const pool = require("../db/pgConnections");
+const routeGuard = require("../authorization/routeGuard");
 
 
 router.get("/random",async (req,res)=>{

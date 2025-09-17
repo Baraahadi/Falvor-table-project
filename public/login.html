@@ -3,15 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKB4Imkb9hYQdF+2C5MdT3f3uJXkzFf3qj/8d+kE2w1l1p6q36+tA/74fRqh1VYlC9K2VjQ4A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Flavor Table Project</title>
   </head>
   <body>
     <header>
       <ul class="top-nav">
-         <li><i class="fa-solid fa-bell"></i> <a href="profile.html">Profile</a></li>
+
+        <li><i class="fa-solid fa-bell"></i> <a href="profile.html">Profile</a></li>
         <li><i class="fa-solid fa-user"></i> <a href="favorite.html">Favorite Recipes</a></li>
-                <li><i class="fa-solid fa-bell"></i> <a href="index.html">Back To Home </a></li>
+        <li><i class="fa-solid fa-bell"></i> <a href="index.html">Back To Home </a></li>
+
       </ul>
     </header>
     <main>
@@ -22,13 +31,20 @@
           <li><i class="fa-solid fa-right-from-bracket"></i> About Us</li>
         </ul>
       </nav>
-      <div class="bg-image">
-            <div class="bg"> 
-          <input type="text" id="searchInput"placeholder="Enter ingredients (e.g. chicken,rice)" />
-          <button id="searchBtn">Search</button>
-          <div id="results"></div>
-  </div>      </div>
+      <div class="form-container">
+  <form class="register-form">
+    <h2>Register</h2>
+    <input type="text" placeholder="User Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+</div>
+      <!-- <div class="bg-image">
+        <div class="intro"><h1>Flavor Table</h1></div>
+      </div> -->
     </main>
+    
     <footer>&copy; 2025 Flavor Table. All rights reserved.</footer>
     <script src="app.js"></script>
   </body>
